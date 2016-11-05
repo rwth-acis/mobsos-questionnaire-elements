@@ -1,0 +1,34 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`mobsos-question-editor`
+An editor for creating questionnaires for MobSOS.
+
+@demo demo/index.html 
+-->
+
+<dom-module id="mobsos-question-editor">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]</h2>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'mobsos-question-editor',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'mobsos-question-editor',
+        },
+      },
+
+    });
+  </script>
+</dom-module>
