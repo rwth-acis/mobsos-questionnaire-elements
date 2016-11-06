@@ -53,7 +53,7 @@ An editor for editing questios in MobSOS.
 
     </style>
 
-    <paper-dropdown-menu-light label="Page type" on-iron-select="_pageTypeSelected">
+    <paper-dropdown-menu-light label="Page type">
       <paper-listbox class="dropdown-content" attr-for-selected="page-type" selected="{{pageType}}">
         <paper-item page-type="InformationPageType">Information</paper-item>
         <paper-item page-type="OrdinalScaleQuestionPageType">Ordinal scale question</paper-item>
@@ -130,8 +130,7 @@ An editor for editing questios in MobSOS.
       properties: {
         pageType: {
           type: String,
-          value: 'InformationPageType',
-          observer: '_pageTypeChanged'
+          value: 'InformationPageType'
         },
         title: String,
         instructions: String,
@@ -143,17 +142,13 @@ An editor for editing questios in MobSOS.
        * Exports an XML node that can be used in the overall MobSOS questionnaire XML.
        */
       exportXML: function() {
-        var xml = '<qu:Page name="' + title + '">' +
+        var xml = '<qu:Page name="' + this.title + '">' +
                 '<qu:Instructions>' +
-                instructions +
+                this.instructions +
                 '</qu:Instructions>' +
                 '</qu:Page>';
 
         return xml;
-      },
-
-      _pageTypeChanged: function(newValue, oldValue) {
-
       },
 
       _hideOrdinalScaleSegment: function(pageType) {
