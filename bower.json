@@ -1,7 +1,10 @@
 {
-  "name": "mobsos-question-editor",
-  "description": "An editor for creating questionnaires for MobSOS.",
-  "main": "mobsos-question-editor.html",
+  "name": "mobsos-questionnaire-elements",
+  "description": "Elements for editing MobSOS questionnaires.",
+  "main": [
+    "mobsos-question-editor.html",
+    "mobsos-questionnaire-editor.html"
+  ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
     "paper-input": "PolymerElements/paper-input#^1.1.20",

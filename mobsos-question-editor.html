@@ -9,7 +9,7 @@
 
 <!--
 `mobsos-question-editor`
-An editor for creating questionnaires for MobSOS.
+An editor for editing questios in MobSOS.
 
 @demo demo/index.html
 -->
@@ -20,6 +20,7 @@ An editor for creating questionnaires for MobSOS.
 
       :host {
         display: block;
+        max-width: 600px;
       }
 
       #title {
@@ -46,6 +47,10 @@ An editor for creating questionnaires for MobSOS.
         padding-top: 30px;
       }
 
+      paper-toggle-button {
+        padding-top: 30px;
+      }
+
     </style>
 
     <paper-dropdown-menu-light label="Page type" on-iron-select="_pageTypeSelected">
@@ -57,9 +62,9 @@ An editor for creating questionnaires for MobSOS.
       </paper-listbox>
     </paper-dropdown-menu-light>
 
-    <paper-input id="title" label="Title"></paper-input>
+    <paper-input id="title" value="{{title}}" label="Title"></paper-input>
 
-    <paper-input id="instructions" label="Question or instructions"></paper-input>
+    <paper-input id="instructions" value="{{instructions}}" label="Question or instructions"></paper-input>
 
     <div id="ordinal-scale-segment" hidden$="[[_hideOrdinalScaleSegment(pageType)]]">
       <div class="flex-horizontal">
@@ -128,8 +133,23 @@ An editor for creating questionnaires for MobSOS.
           value: 'InformationPageType',
           observer: '_pageTypeChanged'
         },
+        title: String,
+        instructions: String,
         minValue: String,
         maxValue: String
+      },
+
+      /**
+       * Exports an XML node that can be used in the overall MobSOS questionnaire XML.
+       */
+      exportXML: function() {
+        var xml = '<qu:Page name="' + title + '">' +
+                '<qu:Instructions>' +
+                instructions +
+                '</qu:Instructions>' +
+                '</qu:Page>';
+
+        return xml;
       },
 
       _pageTypeChanged: function(newValue, oldValue) {

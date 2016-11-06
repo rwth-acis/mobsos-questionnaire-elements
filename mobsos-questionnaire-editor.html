@@ -1,0 +1,57 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="mobsos-question-editor.html">
+
+<!--
+`mobsos-questionnaire-editor`
+An editor for creating questionnaires for MobSOS.
+
+@demo demo/questionnaire.html
+-->
+
+<dom-module id="mobsos-questionnaire-editor">
+  <template>
+    <style>
+
+      :host {
+        display: block;
+      }
+
+      .questionnaire {
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+      }
+
+      mobsos-question-editor {
+        border: 1px solid lightgray;
+        padding: 25px;
+        margin-bottom: 15px;
+        width: 100%;
+      }
+
+    </style>
+
+    <div class="questionnaire">
+
+      <mobsos-question-editor></mobsos-question-editor>
+
+      <mobsos-question-editor></mobsos-question-editor>
+
+    </div>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'mobsos-questionnaire-editor',
+
+      properties: {},
+
+      exportXML: function() {
+        return '';
+      }
+
+    });
+  </script>
+</dom-module>
