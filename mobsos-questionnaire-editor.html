@@ -18,7 +18,7 @@ An editor for creating questionnaires for MobSOS.
         display: block;
       }
 
-      .questionnaire {
+      #questionnaire {
         @apply(--layout-vertical);
         @apply(--layout-center);
       }
@@ -32,7 +32,7 @@ An editor for creating questionnaires for MobSOS.
 
     </style>
 
-    <sortable-js class="questionnaire">
+    <sortable-js id="questionnaire">
 
       <mobsos-question-editor></mobsos-question-editor>
 
@@ -50,7 +50,21 @@ An editor for creating questionnaires for MobSOS.
       properties: {},
 
       exportXML: function() {
-        return '';
+        var xml = '<?xml version="1.0" encoding="utf-8" ?>' +
+                '<qu:Questionnaire xmlns="http://dbis.rwth-aachen.de/mobsos/questionnaire.xsd" xmlns:qu="http://dbis.rwth-aachen.de/mobsos/questionnaire.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">\n\n';
+
+        // now add all the question's XML nodes
+        var questionNodes = this.$.questionnaire.children;
+
+        for (var i = 0; i < questionNodes.length; i++) {
+          var questionNode = questionNodes[i];
+          xml += questionNode.exportXML() + '\n\n';
+        }
+
+        xml += '</qu:Questionnaire>';
+
+        console.log(xml);
+        return xml;
       }
 
     });
