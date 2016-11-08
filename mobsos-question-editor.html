@@ -72,7 +72,7 @@ An editor for editing questios in MobSOS.
       <div class="flex-horizontal">
 
         <div class="left-column">
-          <paper-input id="ordinal-minval" type="number" value="{{minValue}}"></paper-input>
+          <paper-input id="ordinal-minval" type="number" value="{{minValue}}" max="{{maxValue}}"></paper-input>
         </div>
 
         <div class="flexchild">
@@ -84,7 +84,7 @@ An editor for editing questios in MobSOS.
       <div class="flex-horizontal">
 
         <div class="left-column">
-          <paper-input id="ordinal-maxval" type="number" value="{{maxValue}}"></paper-input>
+          <paper-input id="ordinal-maxval" type="number" value="{{maxValue}}" min="{{minValue}}"></paper-input>
         </div>
 
         <div class="flexchild">
