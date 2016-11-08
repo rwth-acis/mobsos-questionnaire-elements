@@ -7,6 +7,8 @@
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../paper-radio-button/paper-radio-button.html">
 
+<script src="../node-uuid/uuid.js"></script>
+
 <!--
 `mobsos-question-editor`
 An editor for editing questios in MobSOS.
@@ -70,11 +72,11 @@ An editor for editing questios in MobSOS.
       <div class="flex-horizontal">
 
         <div class="left-column">
-          <paper-input id="ordinal-minval" type="number" value="0"></paper-input>
+          <paper-input id="ordinal-minval" type="number" value="{{minValue}}"></paper-input>
         </div>
 
         <div class="flexchild">
-          <paper-input id="ordinal-minlabel" value="{{minValue}}" label="Label for minimal value"></paper-input>
+          <paper-input id="ordinal-minlabel" value="{{minLabel}}" label="Label for minimal value"></paper-input>
         </div>
 
       </div>
@@ -82,11 +84,11 @@ An editor for editing questios in MobSOS.
       <div class="flex-horizontal">
 
         <div class="left-column">
-          <paper-input id="ordinal-maxval" type="number" value="5"></paper-input>
+          <paper-input id="ordinal-maxval" type="number" value="{{maxValue}}"></paper-input>
         </div>
 
         <div class="flexchild">
-          <paper-input id="ordinal-maxlabel" value="{{maxValue}}" label="Label for maximal value"></paper-input>
+          <paper-input id="ordinal-maxlabel" value="{{maxLabel}}" label="Label for maximal value"></paper-input>
         </div>
 
       </div>
@@ -100,7 +102,7 @@ An editor for editing questios in MobSOS.
         </div>
 
         <div class="flexchild">
-          <paper-input id="dichotomous-minlabel" value="{{minValue}}" label="Option 1"></paper-input>
+          <paper-input id="dichotomous-minlabel" value="{{minLabel}}" label="Option 1"></paper-input>
         </div>
 
       </div>
@@ -112,13 +114,13 @@ An editor for editing questios in MobSOS.
         </div>
 
         <div class="flexchild">
-          <paper-input id="dichotomous-maxlabel" value="{{maxValue}}" label="Option 2"></paper-input>
+          <paper-input id="dichotomous-maxlabel" value="{{maxLabel}}" label="Option 2"></paper-input>
         </div>
 
       </div>
     </div>
 
-    <paper-toggle-button id="required" hidden$="[[_hideRequired(pageType)]]">Required</paper-toggle-button>
+    <paper-toggle-button id="required" checked="{{required}}" hidden$="[[_hideRequired(pageType)]]">Required</paper-toggle-button>
 
   </template>
 
@@ -134,18 +136,53 @@ An editor for editing questios in MobSOS.
         },
         title: String,
         instructions: String,
-        minValue: String,
-        maxValue: String
+        minLabel: String,
+        maxLabel: String,
+        minValue: {
+          type: Number,
+          value: 0
+        },
+        maxValue: {
+          type: Number,
+          value: 5
+        },
+        required: {
+          type: Boolean,
+          value: true
+        }
       },
 
       /**
        * Exports an XML node that can be used in the overall MobSOS questionnaire XML.
        */
       exportXML: function() {
-        var xml = '<qu:Page name="' + this.title + '">' +
-                '<qu:Instructions>' +
+        var xml = '<qu:Page xsi:type="qu:' + this.pageType + '"\n' +
+                '  name="' + this.title + '"'
+
+        switch (this.pageType) {
+          case 'OrdinalScaleQuestionPageType':
+            xml += '\n  qid="' + uuid.v4() + '"\n' +
+                    '  required="' + this.required + '"\n' +
+                    '  minval="' + this.minValue + '"\n' +
+                    '  maxval="' + this.maxValue + '"\n' +
+                    '  minlabel="' + this.minLabel + '"\n' +
+                    '  maxlabel="' + this.maxLabel + '"';
+            break;
+          case 'DichotomousQuestionPageType':
+            xml += '\n  qid="' + uuid.v4() + '"\n' +
+                    '  required="' + this.required + '"\n' +
+                    '  minlabel="' + this.minLabel + '"\n' +
+                    '  maxlabel="' + this.maxLabel + '"';
+            break;
+          case 'FreeTextQuestionPageType':
+            xml += '\n  qid="' + uuid.v4() + '"\n' +
+                    '  required="' + this.required + '"';
+        }
+
+        xml += '>\n' +
+                '  <qu:Instructions>' +
                 this.instructions +
-                '</qu:Instructions>' +
+                '</qu:Instructions>\n' +
                 '</qu:Page>';
 
         return xml;
