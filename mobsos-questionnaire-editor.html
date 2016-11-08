@@ -1,6 +1,9 @@
 <link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
 <link rel="import" href="../polymer-sortablejs/polymer-sortablejs.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="mobsos-question-editor.html">
 
 <!--
@@ -18,9 +21,23 @@ An editor for creating questionnaires for MobSOS.
         display: block;
       }
 
+      .container {
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+      }
+
+      .buttonbar {
+        @apply(--layout-horizontal);
+        @apply(--layout-end-justified);
+        width: 100%;
+        max-width: 652px;
+        margin-bottom: 25px;
+      }
+
       #questionnaire {
         @apply(--layout-vertical);
         @apply(--layout-center);
+        width: 100%;
       }
 
       mobsos-question-editor {
@@ -32,13 +49,21 @@ An editor for creating questionnaires for MobSOS.
 
     </style>
 
-    <sortable-js id="questionnaire">
+    <div class="container">
 
-      <mobsos-question-editor></mobsos-question-editor>
+      <div class="buttonbar">
+        <paper-button on-tap="_handleXMLExport" raised><iron-icon icon="file-download"></iron-icon>Export XML</paper-button>
+      </div>
 
-      <mobsos-question-editor></mobsos-question-editor>
+      <sortable-js id="questionnaire">
 
-    </sortable-js>
+      </sortable-js>
+
+      <div class="buttonbar">
+        <paper-button on-tap="_handleAddQuestion" raised><iron-icon icon="add"></iron-icon>Add question</paper-button>
+      </div>
+
+    </div>
 
   </template>
 
@@ -50,7 +75,7 @@ An editor for creating questionnaires for MobSOS.
       properties: {},
 
       exportXML: function() {
-        var xml = '<?xml version="1.0" encoding="utf-8" ?>' +
+        var xml = '<?xml version="1.0" encoding="utf-8" ?>\n' +
                 '<qu:Questionnaire xmlns="http://dbis.rwth-aachen.de/mobsos/questionnaire.xsd" xmlns:qu="http://dbis.rwth-aachen.de/mobsos/questionnaire.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">\n\n';
 
         // now add all the question's XML nodes
@@ -63,8 +88,33 @@ An editor for creating questionnaires for MobSOS.
 
         xml += '</qu:Questionnaire>';
 
-        console.log(xml);
         return xml;
+      },
+
+      _handleXMLExport: function() {
+        var xml = this.exportXML();
+
+        var filename = "questionnaire.xml";
+
+        var uri = 'data:application/xml;charset=utf-8,' + encodeURI(xml);
+
+        // now, let's create a fake <a> tag, and click it to trigger the download dialog.
+        // @see {@link https://gist.github.com/beders/467a7fccfccb1744607e}
+        var link = document.createElement("a");
+        link.href = uri;
+        // set the visibility hidden so it will not have any effect on the Web layout
+        link.style = "visibility:hidden;";
+        link.download = filename;
+        // this part will append the anchor tag and remove it after automatic click
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      },
+
+      _handleAddQuestion: function() {
+        var questionNode = document.createElement('mobsos-question-editor');
+
+        Polymer.dom(this.$.questionnaire).appendChild(questionNode);
       }
 
     });
