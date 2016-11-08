@@ -35,7 +35,7 @@ A row for the MobSOS questionnaire editor.
       <content select="mobsos-question-editor"></content>
 
       <div class="actions">
-        <paper-icon-button icon="delete" alt="Delete" title="Delete"></paper-icon-button>
+        <paper-icon-button icon="delete" on-tap="_handleDeleteQuestion" alt="Delete" title="Delete"></paper-icon-button>
       </div>
     </div>
 
@@ -46,7 +46,11 @@ A row for the MobSOS questionnaire editor.
 
       is: 'mobsos-questionnaire-row',
 
-      properties: {}
+      properties: {},
+
+      _handleDeleteQuestion: function() {
+        this.fire('delete-question');
+      }
 
     });
   </script>
