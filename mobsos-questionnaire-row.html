@@ -1,0 +1,54 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+
+<!--
+`mobsos-questionnaire-row`
+A row for the MobSOS questionnaire editor.
+
+@demo demo/questionnaire.html
+-->
+
+<dom-module id="mobsos-questionnaire-row">
+  <template>
+    <style>
+
+      :host {
+        display: inline;
+        width: 100%;
+        max-width: 600px;
+      }
+
+      .container {
+        @apply(--layout-vertical);
+      }
+
+      .actions {
+        @apply(--layout-horizontal);
+        @apply(--layout-end-justified);
+        margin-top: 10px;
+      }
+
+    </style>
+
+    <div class="container">
+      <content select="mobsos-question-editor"></content>
+
+      <div class="actions">
+        <paper-icon-button icon="delete" alt="Delete" title="Delete"></paper-icon-button>
+      </div>
+    </div>
+
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'mobsos-questionnaire-row',
+
+      properties: {}
+
+    });
+  </script>
+
+</dom-module>

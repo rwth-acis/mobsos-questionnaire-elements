@@ -118,7 +118,7 @@ An editor for editing questios in MobSOS.
       </div>
     </div>
 
-    <paper-toggle-button id="required">Required</paper-toggle-button>
+    <paper-toggle-button id="required" hidden$="[[_hideRequired(pageType)]]">Required</paper-toggle-button>
 
   </template>
 
@@ -149,6 +149,10 @@ An editor for editing questios in MobSOS.
                 '</qu:Page>';
 
         return xml;
+      },
+
+      _hideRequired: function(pageType) {
+        return (pageType === 'InformationPageType');
       },
 
       _hideOrdinalScaleSegment: function(pageType) {

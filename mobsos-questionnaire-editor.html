@@ -5,6 +5,7 @@
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="mobsos-question-editor.html">
+<link rel="import" href="mobsos-questionnaire-row.html">
 
 <!--
 `mobsos-questionnaire-editor`
@@ -40,11 +41,11 @@ An editor for creating questionnaires for MobSOS.
         width: 100%;
       }
 
-      mobsos-question-editor {
+      mobsos-questionnaire-row {
+        display: inline;
         border: 1px solid lightgray;
         padding: 25px;
         margin-bottom: 15px;
-        width: 100%;
       }
 
     </style>
@@ -79,7 +80,7 @@ An editor for creating questionnaires for MobSOS.
                 '<qu:Questionnaire xmlns="http://dbis.rwth-aachen.de/mobsos/questionnaire.xsd" xmlns:qu="http://dbis.rwth-aachen.de/mobsos/questionnaire.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">\n\n';
 
         // now add all the question's XML nodes
-        var questionNodes = this.$.questionnaire.children;
+        var questionNodes = this.$.questionnaire.querySelectorAll('mobsos-question-editor');
 
         for (var i = 0; i < questionNodes.length; i++) {
           var questionNode = questionNodes[i];
@@ -112,9 +113,12 @@ An editor for creating questionnaires for MobSOS.
       },
 
       _handleAddQuestion: function() {
+        var rowNode = document.createElement('mobsos-questionnaire-row');
         var questionNode = document.createElement('mobsos-question-editor');
+        Polymer.dom(rowNode).appendChild(questionNode);
+        //rowNode.appendChild(questionNode);
 
-        Polymer.dom(this.$.questionnaire).appendChild(questionNode);
+        Polymer.dom(this.$.questionnaire).appendChild(rowNode);
       }
 
     });
