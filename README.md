@@ -1,6 +1,19 @@
-# \<mobsos-question-editor\>
+# \<mobsos-questionnaire-editor\>
 
-An editor for creating questionnaires for MobSOS.
+An editor for creating MobSOS questionnaires.
+
+# How to Use
+
+After importing the html element, use the following line of code to
+show an editor for your MobSOS questionnaire.
+
+```
+<mobsos-questionnaire-editor></mobsos-questionnaire-editor>
+```
+
+# How to Develop
+
+Please read here, how to modify and test this element.
 
 ## Install the Polymer-CLI
 
