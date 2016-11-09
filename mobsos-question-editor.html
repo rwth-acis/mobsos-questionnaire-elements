@@ -13,7 +13,7 @@
 `mobsos-question-editor`
 An editor for editing questios in MobSOS.
 
-@demo demo/index.html
+@demo demo/question-editor.html
 -->
 
 <dom-module id="mobsos-question-editor">
@@ -130,22 +130,47 @@ An editor for editing questios in MobSOS.
       is: 'mobsos-question-editor',
 
       properties: {
+        /**
+         * The page type, can be `InformationPageType`, `OrdinalScaleQuestionPageType`, `DichotomousQuestionPageType`
+         * or `FreeTextQuestionPageType`.
+         */
         pageType: {
           type: String,
           value: 'InformationPageType'
         },
+        /**
+         * The title of the question or information page.
+         */
         title: String,
+        /**
+         * The instructions of the question or information.
+         */
         instructions: String,
+        /**
+         * The label for the minimal value of ordinal scale and dichotomous question types.
+         */
         minLabel: String,
+        /**
+         * The label for the maximal value of ordinal scale and dichotomous question types.
+         */
         maxLabel: String,
+        /**
+         * The minimal value for ordinal scale and dichotomous questions.
+         */
         minValue: {
           type: Number,
           value: 0
         },
+        /**
+         * The maximal value for ordinal scale and dichotomous questions.
+         */
         maxValue: {
           type: Number,
           value: 5
         },
+        /**
+         * Defines for a question, whether it needs to be filled out in the questionnaire.
+         */
         required: {
           type: Boolean,
           value: true
@@ -154,6 +179,8 @@ An editor for editing questios in MobSOS.
 
       /**
        * Exports an XML node that can be used in the overall MobSOS questionnaire XML.
+       *
+       * @return {string} a MobSOS XML node of the question page.
        */
       exportXML: function() {
         var xml = '<qu:Page xsi:type="qu:' + this.pageType + '"\n' +

@@ -9,9 +9,10 @@
 
 <!--
 `mobsos-questionnaire-editor`
-An editor for creating questionnaires for MobSOS.
+An editor for creating questionnaires for MobSOS. Its interface shows a list of question editors. New questions can be
+added via a button. Finally, the questionnaire can be exported as an XML in the MobSOS Surveys format.
 
-@demo demo/questionnaire.html
+@demo demo/index.html
 -->
 
 <dom-module id="mobsos-questionnaire-editor">
@@ -75,6 +76,11 @@ An editor for creating questionnaires for MobSOS.
 
       properties: {},
 
+      /**
+       * Exports the questionnaire as MobSOS XML.
+       *
+       * @return {string} a MobSOS XML representation of the questionnaire.
+       */
       exportXML: function() {
         var xml = '<?xml version="1.0" encoding="utf-8" ?>\n' +
                 '<qu:Questionnaire xmlns="http://dbis.rwth-aachen.de/mobsos/questionnaire.xsd" xmlns:qu="http://dbis.rwth-aachen.de/mobsos/questionnaire.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">\n\n';

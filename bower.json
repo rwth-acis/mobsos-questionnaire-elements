@@ -2,8 +2,9 @@
   "name": "mobsos-questionnaire-elements",
   "description": "Elements for editing MobSOS questionnaires.",
   "main": [
+    "mobsos-questionnaire-editor.html",
     "mobsos-question-editor.html",
-    "mobsos-questionnaire-editor.html"
+    "mobsos-questionnaire-row.html"
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
