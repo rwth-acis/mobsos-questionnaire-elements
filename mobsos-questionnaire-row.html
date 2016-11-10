@@ -23,6 +23,14 @@ A row for the MobSOS questionnaire editor. Mainly responsible for showing the de
         @apply(--layout-vertical);
       }
 
+      .drag-handle {
+        @apply(--layout-vertical);
+        @apply(--layout-center);
+        width: 100%;
+        cursor: move;
+        cursor: -webkit-grabbing;  /* overrides 'move' */
+      }
+
       .actions {
         @apply(--layout-horizontal);
         @apply(--layout-end-justified);
@@ -32,6 +40,10 @@ A row for the MobSOS questionnaire editor. Mainly responsible for showing the de
     </style>
 
     <div class="container">
+      <div class="drag-handle" title="Drag me around to reorder questions!">
+        <content select="iron-icon"></content>
+      </div>
+
       <content select="mobsos-question-editor"></content>
 
       <div class="actions">
