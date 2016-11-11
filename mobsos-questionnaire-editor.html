@@ -132,10 +132,14 @@ added via a button. Finally, the questionnaire can be exported as an XML in the 
         Polymer.dom(rowNode).appendChild(questionNode);
 
         Polymer.dom(this.$.questionnaire).appendChild(rowNode);
+        rowNode.playAnimation('entry');
       },
 
       _handleDeleteQuestion: function(event) {
-        Polymer.dom(this.$.questionnaire).removeChild(event.target);
+        event.target.addEventListener('neon-animation-finish', function() {
+          Polymer.dom(this.$.questionnaire).removeChild(event.target);
+        }.bind(this));
+        event.target.playAnimation('exit');
       }
 
     });
